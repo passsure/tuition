@@ -604,12 +604,12 @@
                     💬 <a href="https://wa.me/971585892077" target="_blank" rel="noopener">WhatsApp Chat</a>
                 </p>
             </div>
-            <form class="card" name="enquiry" onsubmit="return submitForm(event)">
+            <form class="card" name="enquiry">
                 <h3>Book a Free Trial</h3>
-                <label>Student Name<br /><input required name="name" placeholder="e.g., Rohan Sharma"
+                <label>Student Name<br /><input id="name" required name="name" placeholder="e.g., Rohan Sharma"
                         style="width:100%;padding:10px;border:1px solid #d6e6ff;border-radius:10px" /></label><br /><br />
                 <label>Grade<br />
-                    <select name="grade" required
+                    <select id="grade" name="grade" required
                         style="width:100%;padding:10px;border:1px solid #d6e6ff;border-radius:10px">
                         <option value="9">7</option>
                         <option value="9">8</option>
@@ -621,13 +621,13 @@
                 </label><br /><br />
 
                 <p>Choose Subject(s):</p>
-                <label><input type="radio" name="subject" value="maths" required> Maths</label><br>
-                <label><input type="radio" name="subject" value="physics"> Physics</label><br>
-                <label><input type="radio" name="subject" value="both"> Both</label><br /><br />
+                <label><input id="maths" type="radio" name="subject" value="maths" required> Maths</label><br>
+                <label><input id="physics" type="radio" name="subject" value="physics"> Physics</label><br>
+                <label><input id="both" type="radio" name="subject" value="both"> Both</label><br /><br />
 
 
                 <label>Course<br />
-                    <select name="course" required
+                    <select id="course" name="course" required
                         style="width:100%;padding:10px;border:1px solid #d6e6ff;border-radius:10px">
                         <option>Crash (Pass Exam)</option>
                         <option>Regular Tuition</option>
@@ -636,7 +636,7 @@
                 </label><br /><br />
                 <label>Parent WhatsApp<br /><input required name="whatsapp" placeholder="e.g., +9715XXXXXXXX"
                         style="width:100%;padding:10px;border:1px solid #d6e6ff;border-radius:10px" /></label><br /><br />
-                <button class="btn" type="submit">Send Enquiry</button>
+                <button class="btn" type="submit" onclick="sendWhatsApp()">Send Enquiry</button>
                 <div id="formMsg" class="tiny" style="margin-top:8px"></div>
             </form>
         </div>
@@ -674,24 +674,23 @@
         style="position:fixed;right:18px;bottom:18px;background:#25D366;color:#fff;padding:14px 16px;border-radius:999px;font-weight:800;box-shadow:0 8px 20px rgba(0,0,0,.15);">WA</a>
 
     <script>
-        // Smooth internal navigation
-        document.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('click', e => { const id = a.getAttribute('href'); if (id.length > 1) { e.preventDefault(); document.querySelector(id).scrollIntoView({ behavior: 'smooth' }); } }) });
+        function sendWhatsApp() {
+            let name = document.getElementById("name").value;
+            let course = document.getElementById("course").value;
+            let grade = document.getElementById("grade").value;       
+            let subject = document.querySelector('input[name="subject"]:checked')?.value;     
 
-        // Year
-        document.getElementById('yr').textContent = new Date().getFullYear();
+            let phone = "971585892077"; // 🔹 Replace with your WhatsApp number (no +, just country code)
+            let url = "https://wa.me/" + phone + "?text="
+                + "Hello, I am " + name + "%0A"
+                + "Subject: " + subject + "%0A"
+                + "Course: " + course + "%0A"     
+                + "Grade: " + grade;
 
-        // Simple form handler — opens WhatsApp prefilled & falls back to mailto
-        function submitForm(e) {
-            e.preventDefault();
-            const f = e.target; const data = Object.fromEntries(new FormData(f).entries());
-            const msg = New enquiry:% 0AName: ${ encodeURIComponent(data.name) }% 0AGrade: ${ encodeURIComponent(data.grade) }% 0ACourse: ${ encodeURIComponent(data.course) }% 0AWhatsApp: ${ encodeURIComponent(data.whatsapp) };
-            const wa = https://wa.me/971585892077?text=${msg};
-                window.open(wa, '_blank');
-            document.getElementById('formMsg').textContent = 'Opened WhatsApp with your enquiry. If it did not open, email pass_sure@outlook.com';
-            return false;
+            window.open(url, "_blank");
         }
     </script>
-</body>
 
+</body>
 
 </html>

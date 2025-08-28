@@ -634,7 +634,7 @@
                         <option>Doubt Clearance</option>
                     </select>
                 </label><br /><br />
-                <label>Parent WhatsApp<br /><input required name="whatsapp" placeholder="e.g., +9715XXXXXXXX"
+                <label>Parent WhatsApp<br /><input id="whatsapp" required name="whatsapp" placeholder="e.g., +9715XXXXXXXX"
                         style="width:100%;padding:10px;border:1px solid #d6e6ff;border-radius:10px" /></label><br /><br />
                 <button class="btn" type="submit" onclick="sendWhatsApp()">Send Enquiry</button>
                 <div id="formMsg" class="tiny" style="margin-top:8px"></div>
@@ -677,7 +677,8 @@
         function sendWhatsApp() {
             let name = document.getElementById("name").value;
             let course = document.getElementById("course").value;
-            let grade = document.getElementById("grade").value;       
+            let grade = document.getElementById("grade").value;      
+            let number = document.getElementById("whatsapp").value;              
             let subject = document.querySelector('input[name="subject"]:checked')?.value;     
 
             let phone = "971585892077"; // 🔹 Replace with your WhatsApp number (no +, just country code)
@@ -685,7 +686,8 @@
                 + "Hello, I am " + name + "%0A"
                 + "Subject: " + subject + "%0A"
                 + "Course: " + course + "%0A"     
-                + "Grade: " + grade;
+                + "Grade: " + grade + "%0A"
+                + "Contact: "+ number;
 
             window.open(url, "_blank");
         }
